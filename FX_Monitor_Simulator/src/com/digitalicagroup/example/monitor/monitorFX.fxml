@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ap" maxHeight="-1.0" maxWidth="-1.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.digitalicagroup.example.monitor.ControllerFXML">
+   <children>
+      <Label alignment="CENTER" layoutX="293.0" layoutY="14.0" style="&#10;" text="JavaFX Monitor Simulator" textAlignment="CENTER" textFill="#333333" wrapText="false">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btn_start" buttonType="RAISED" layoutX="284.0" layoutY="69.0" prefHeight="40.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #4CAF50; -fx-cursor: hand;" text="START" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_stop" buttonType="RAISED" layoutX="429.0" layoutY="69.0" prefHeight="40.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #F44336; -fx-cursor: hand;" text="STOP" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="input_threads" alignment="CENTER" focusColor="#4cad50" labelFloat="true" layoutX="25.0" layoutY="155.0" prefHeight="40.0" prefWidth="155.0" promptText="Nº de Threads">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="input_max_num" alignment="CENTER" focusColor="#4cad50" labelFloat="true" layoutX="25.0" layoutY="249.0" prefHeight="40.0" prefWidth="155.0" promptText="Máximo (INT)">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <Label alignment="CENTER" layoutX="57.0" layoutY="348.0" style="&#10;" text="Velocidade:" textAlignment="CENTER" textFill="#333333" wrapText="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXSlider fx:id="slider_speed" layoutX="25.0" layoutY="388.0" prefHeight="14.0" prefWidth="155.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXSlider>
+      <Label fx:id="label_result" alignment="CENTER" layoutX="25.0" layoutY="459.0" style="&#10;" text="Inteiros Processados: 0" textAlignment="CENTER" textFill="#333333" wrapText="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXMasonryPane fx:id="threads_pane" layoutX="246.0" layoutY="147.0" prefHeight="430.0" prefWidth="530.0" style="-fx-border-color: #ccc; -fx-background-color: #f1f1f1;" />
+      <StackPane fx:id="dialog_pane" layoutX="229.0" layoutY="175.0" pickOnBounds="false" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: transparent;" />
+   </children>
+</AnchorPane>
