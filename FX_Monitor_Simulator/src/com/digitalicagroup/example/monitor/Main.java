@@ -15,12 +15,12 @@ public class Main extends Application{
 		try {
 			AnchorPane root = SingletonObjects.INSTANCE.getRoot();
 			
-			primaryStage.setResizable(false);
-			JFXDecorator decorator = new JFXDecorator(primaryStage, root, true, false, true);
+			primaryStage.setResizable(true);
+			JFXDecorator decorator = new JFXDecorator(primaryStage, root, true, true, true);
 			decorator.setCustomMaximize(true);
 			
-			Scene scene = new Scene(decorator,810,640);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Scene scene = new Scene(decorator,810,740);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image("icons/monitor.png"));

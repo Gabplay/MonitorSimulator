@@ -96,31 +96,29 @@ public class ControllerFXML{
 		window.addIntegerStorage(intStorage);
 		window.addEmptyStorageNotifier(emptyStorageNotifier);
 		
-		// Launch all consumer threads.
+		// Launch all consumer threads
 		for (int i = 0; i < consumerCount; i++) {
 			Random r = new Random();
+			Random s1 = new Random();
+			Random s2 = new Random();
 			IntegerConsumer consumer = new IntegerConsumer(intStorage, i);
+			
 			consumer.addObserver(window);
 			(new Thread(consumer)).start();
 			
 			Label lbl = new Label();
 			
-			double size = 400 / consumerCount;
-			
-			lbl.setPrefSize(size, size);
+			lbl.setPrefWidth(s1.nextDouble() * 100);
+			lbl.setPrefHeight(s2.nextDouble() * 100);
 			lbl.setTextFill(Color.WHITE);
 			lbl.setFont(Font.font(null, FontWeight.BOLD, 20));
 			lbl.setAlignment(Pos.CENTER);
 			lbl.setId("Label-" + Integer.toString(i));
-			
-			//System.out.println("lblId = " + lbl.getId());
 			lbl.setStyle("-fx-background-color: rgb(" + r.nextInt(220) + "," + r.nextInt(220) + "," + r.nextInt(220) + ");");
 			
 			threads_pane.getChildren().add(lbl);
-		
 		}
 		window.startSimulation();
-		
 		handleEvents(window, intStorage);
 	}
 	
