@@ -3,7 +3,17 @@ package com.digitalicagroup.example.monitor;
 import java.util.Random;
 
 import com.digitalicagroup.example.monitor.ui.MainWindowObserver;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXMasonryPane;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,6 +43,8 @@ public class ControllerFXML{
 	@FXML
 	private StackPane dialog_pane;
 	
+	private Boolean isValidInputs;
+	
 	
 	public ControllerFXML() {
 		
@@ -41,6 +53,7 @@ public class ControllerFXML{
 	public void initialize() {
 		// Ammount of consumer (threads) to be launched and maxInteger count to be consumed.
 		int consumerCount = 9, max_integer = 10;
+		isValidInputs = true;
 		
 		// Init inputs
 		input_threads.setText(String.valueOf(consumerCount));
@@ -69,11 +82,25 @@ public class ControllerFXML{
 		
 		// Start Button
 		btn_start.setOnAction((event) -> {
-			initWindow();
-			btn_start.setDisable(true);
-			btn_stop.setDisable(false);
+			
+			if(Integer.parseInt(input_threads.getText()) > 64 || Integer.parseInt(input_threads.getText()) < 1) {
+				isValidInputs = false;
+				input_threads.setFocusColor(Color.RED);
+				input_threads.requestFocus();
+			} else if(Integer.parseInt(input_max_num.getText()) > 1000 || Integer.parseInt(input_max_num.getText()) < 1) {
+				isValidInputs = false;
+				input_max_num.setFocusColor(Color.RED);
+				input_max_num.requestFocus();
+			} else {
+				isValidInputs = true;
+			}
+			
+			if(isValidInputs) {
+				initWindow();
+				btn_start.setDisable(true);
+				btn_stop.setDisable(false);
+			}
 		});
-		
 	}
 	
 	public void initWindow() {
@@ -111,7 +138,7 @@ public class ControllerFXML{
 			lbl.setPrefWidth(s1.nextDouble() * 100);
 			lbl.setPrefHeight(s2.nextDouble() * 100);
 			lbl.setTextFill(Color.WHITE);
-			lbl.setFont(Font.font(null, FontWeight.BOLD, 20));
+			lbl.setFont(Font.font(null, FontWeight.BOLD, 18));
 			lbl.setAlignment(Pos.CENTER);
 			lbl.setId("Label-" + Integer.toString(i));
 			lbl.setStyle("-fx-background-color: rgb(" + r.nextInt(220) + "," + r.nextInt(220) + "," + r.nextInt(220) + ");");
@@ -120,6 +147,42 @@ public class ControllerFXML{
 		}
 		window.startSimulation();
 		handleEvents(window, intStorage);
+	}
+	
+	public void validateInputs() {
+		RequiredFieldValidator valid_threads = new RequiredFieldValidator();
+		NumberValidator valid_num_threads = new NumberValidator();
+		
+		RequiredFieldValidator valid_ints = new RequiredFieldValidator();
+		NumberValidator valid_num_ints = new NumberValidator();
+		
+		input_threads.getValidators().add(valid_threads);
+		input_threads.getValidators().add(valid_num_threads);
+		valid_threads.setMessage("Insira um inteiro de 1 a 64");
+		valid_num_threads.setMessage("Insira um inteiro de 1 a 64");
+		
+		input_max_num.getValidators().add(valid_ints);
+		input_max_num.getValidators().add(valid_num_ints);
+		valid_ints.setMessage("Insira um inteiro de 1 a 1000");
+		valid_num_ints.setMessage("Insira um inteiro de 1 a 1000");
+		
+		input_threads.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if(!newValue) {
+					input_threads.validate();
+				}
+			}
+		});
+		
+		input_max_num.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if(!newValue) {
+					input_max_num.validate();
+				}
+			}
+		});
 	}
 	
 	public void handleEvents(MainWindowObserver window, IntegerStorage intStorage) {
@@ -135,6 +198,4 @@ public class ControllerFXML{
 			intStorage.setWaitMillis((int) (2300 - slider_speed.getValue() * 20));
 		});
 	}
-	
-	
 }

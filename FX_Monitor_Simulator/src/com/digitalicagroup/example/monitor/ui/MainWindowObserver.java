@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -73,6 +74,10 @@ public class MainWindowObserver implements OutputManager {
 
 			Label lbl = (Label) pane.lookup("#Label-" + Integer.toString(id));
 			lbl.setText(Integer.toString((int) consumedInt));
+			
+			final Tooltip tooltip = new Tooltip();
+			tooltip.setText("Thread["  + Integer.toString(id) + "]");
+			lbl.setTooltip(tooltip);
 		});
 	}
 
