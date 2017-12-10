@@ -28,10 +28,12 @@ public class MainWindowObserver implements OutputManager {
 	public StorageNotifier emptyStorageNotifier;
 	public int threadsQuantity;
 	public Random random;
+	public int count;
 
 	public MainWindowObserver(int threadsQuantity) {
 		this.threadsQuantity = threadsQuantity;
 		this.random = new Random();
+		this.count = 0;
 	}
 
 	protected Color getRandomColor() {
@@ -78,6 +80,11 @@ public class MainWindowObserver implements OutputManager {
 			final Tooltip tooltip = new Tooltip();
 			tooltip.setText("Thread["  + Integer.toString(id) + "]");
 			lbl.setTooltip(tooltip);
+			
+			Label label_result = (Label) root.lookup("#label_result");
+			
+			count++;
+			label_result.setText("Inteiros Processados: " + count);
 		});
 	}
 

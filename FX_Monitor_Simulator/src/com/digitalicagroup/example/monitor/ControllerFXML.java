@@ -189,7 +189,7 @@ public class ControllerFXML{
 		// Stop Button
 		btn_stop.setOnAction((event) -> {
 			threads_pane.getChildren().clear();
-			btn_start.setDisable(false);
+			//btn_start.setDisable(false);
 			btn_stop.setDisable(true);
 		});
 		
